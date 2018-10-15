@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: coral
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.menus > div:first-of-type {
+  width: 50%;
+  margin: 0 25%;
+  text-align: center;
+  top: 30%;
+  position: fixed;
+  padding: 4rem 5rem;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 1rem;
+
+}
+
+.menus > div:last-of-type.startGame{
+  display: block;
+text-align: center;
+padding: 3rem 0 7rem;
+position: fixed;
+bottom: 0;
+width: 70%;
+background-color: white;
+border-radius: 1rem 1rem 0 0;
+margin: 0 15%;
+}
+
+.menus div:last-of-type.startGame form {
+  margin-top: 1rem;
+}
+
+.menus div:last-of-type.default {
+  background-color: red;
+  display: none
+}
+
+.startGame {
+  display : none;
+}
+
+.feedback {
+  background-color: coral;
+  position: fixed;
+  left: 0;
+  margin-top: 10rem;
+  padding: 1rem;
+  border-radius: 0 1rem 1rem 0
+}
+
+.feedback > h1 {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  margin: 0;
+  font-size: 5rem;
+  color: white;
+}
