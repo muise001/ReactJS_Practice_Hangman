@@ -47,7 +47,6 @@ class App extends Component {
 
   handleTyping(e){
     this.setState({chosenWord : e.target.value})
-    // console.log('eindvalue =' + this.state.chosenWord);
   }
 
   showLetter(i){
@@ -88,6 +87,11 @@ class App extends Component {
 
   render(){
     console.log(this.state.displayWord);
+    // if (this.state.choosenWord)
+    //   return <PickWordForm />
+    //
+    // return (<OtherForm chosenWord={this.state.chosenWord}/>)
+
     return (
       <div>
         <div className="menus">
