@@ -28,7 +28,6 @@ code {
 }
 
 .menus > div:last-of-type.startGame{
-  display: block;
 text-align: center;
 padding: 3rem 0 7rem;
 position: fixed;
@@ -45,11 +44,6 @@ margin: 0 15%;
 
 .menus div:last-of-type.default {
   background-color: red;
-  display: none
-}
-
-.startGame {
-  display : none;
 }
 
 .feedback {

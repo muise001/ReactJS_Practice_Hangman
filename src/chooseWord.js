@@ -2,11 +2,12 @@ import React from 'react'
 
 const ChooseWord = (props) => {
   return(
-    <div className={props.className}>
-      <input onChange={props.handleTyping}/>
-      <button onClick={props.setWord}>Submit word</button>
-    </div>
+    <form onSubmit={(e) => {e.preventDefault(); props.chooseWord(e.target.childNodes[0].value)}} >
+      <input/>
+      <input type="submit"/>
+    </form>
   )
 }
+
 
 export default ChooseWord
