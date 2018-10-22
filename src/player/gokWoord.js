@@ -1,27 +1,17 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-class GuessWord extends Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      inputValue : ""
-    }
-    this.setInputValue = this.setInputValue.bind(this)
+const GuessWord = (props) => {
+  const handleSubmit = (e) => {
+    console.log('hih');
+    e.preventDefault()
+    console.log(e.target.childNodes[0].value);
   }
-
-  setInputValue(e){
-    this.setState({
-      inputValue : e.target.value
-    })
-  }
-
-  render(){
-    return (
-      <form onSubmit={(e) => {this.props.guessFullWord(e, this.state.inputValue)}} >
-        <input onChange={this.setInputValue} name="guessFullWord"/>
-        <input type="submit"/>
-        </form>
-      )}
+  return (
+    <form onSubmit={handleSubmit}>
+      <input />
+      <input type="submit"/>
+    </form>
+  )
 }
 
 export default GuessWord

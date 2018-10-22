@@ -1,24 +1,25 @@
 import React, {Component} from 'react'
-import ChooseWord from './chooseWord'
+import ChooseWord from './ChooseWord'
 import GameArea from './GameArea'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.setWord = this.setWord.bind(this)
+    this.state = {
+      word : ''
+    }
+    this.chooseWord = this.chooseWord.bind(this)
   }
 
   chooseWord(word) {
+    console.log(word);
     this.setState({
-      word: word
+      word
     });
   }
 
   render(){
-    if (this.state.word)
-      return <ChooseWord chooseWord={this.props.chooseWord} />
-
-    return (<GameArea word={this.state.word} />)
+    return !this.state.word ? <ChooseWord chooseWord={this.chooseWord} /> : <GameArea chooseWord={this.chooseWord} word={this.state.word} />
   }
 }
 

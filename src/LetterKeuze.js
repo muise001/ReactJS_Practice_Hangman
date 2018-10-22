@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Letters from './Letters'
+import Letters from './Letter'
 
 class LetterKeuze extends Component {
   constructor(props) {
@@ -7,14 +7,15 @@ class LetterKeuze extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(letter){
+  handleClick(e, letter){
+    e.setAttribute("style", "opacity:0")
     this.props.inputLetter(letter);
   }
 
   render(){
     return (
     <div className = {this.props.className}>
-      <Letters handleClick={this.props.handleClick}/>
+      <Letters handleClick={this.handleClick}/>
     </div>
   )}
 }

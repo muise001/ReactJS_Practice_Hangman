@@ -1,8 +1,11 @@
 const DisplayWord = ({word, chosenLetters}) => {
+  console.log(chosenLetters);
+  let arr = []
   word.split("").map((letter) => {
     let char = chosenLetters.indexOf(letter) > -1 ? letter : ".";
-    return (<div><h1>{{char}}</h1></div>)
+    arr.push(char)
   })
+  return(arr)
 }
 
 export default DisplayWord

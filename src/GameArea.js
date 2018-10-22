@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
-import ChooseWord from './chooseWord'
-import LetterKeuze from './player/letterKeuze'
-import ShowWord from './feedback/woordDisplay'
+import LetterKeuze from './LetterKeuze'
 import ScoreBoard from './feedback/scoreBoard'
+import DisplayWord from './DisplayWord'
+import GuessWord from './GuessWord'
+import PlayAgain from './PlayAgain'
 
 class GameArea extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      word : "",
+      word : props.word,
       chosenLetters : [],
+      gameProgress : '',
       score : {
         right : 0,
         wrong : 0,
@@ -17,60 +19,98 @@ class GameArea extends Component {
       }
     }
 
-    // this.udpateScore.bind(this)
-    // this.checkWordHasLetter.bind(this)
-    // this.handleGuessWord.bind(this)
+    this.updateScore = this.updateScore.bind(this)
+    this.handleGuessWord = this.handleGuessWord.bind(this)
+    this.checkGameOver = this.checkGameOver.bind(this)
   }
 
   updateScore(letter) {
-    let { right, wrong, turns, chosenLetters } = this.state;
-    let score = this.checkWordHasLetter(letter);
-    let incR = score ? 1 : 0;
-    let incW = !score ? 1 : 0;
-
+    let {chosenLetters, word} = this.state;
+    let {wrong, turns} = this.state.score
+    let arr = chosenLetters;
+    arr.push(letter);
+    let incW = !word.indexOf(letter) > -1 ? 1 : 0;
     this.setState({
-      chosenLetters: chosenLetters.push(letter),
-      right: right + incR,
-      turns: turns + 1,
-      wrong: wrong + incW
+      chosenLetters: arr,
+      score : {
+        turns: turns + 1,
+        wrong: wrong + incW
+      }
+    })
+    this.checkGameOver(incW, word, chosenLetters, wrong)
+  }
+
+  checkGameOver(incW, word, chosenLetters, wrong){
+    let arr = []
+    word.split("").map((letter) => {
+      let char = chosenLetters.indexOf(letter) > -1 ? letter : ".";
+      arr.push(char)
+    })
+    let won = arr.toString().replace(/,/g, "") === word ? true : false
+    let lost = wrong + incW === 7 ? true : false
+    return won ? this.gameOver('won') : (lost ? this.gameOver('lost') : false)
+  }
+
+  gameOver(state){
+    this.setState({
+      chosenLetters : this.state.word.split(""),
+      gameProgress : state
     })
   }
 
-  checkWordHasLetter(letter) {
-    return this.state.word.indexOf(letter) > -1;
-  }
-
   handleGuessWord(word) {
-    // If word is guessed right
-    if (this.state.word === word.toLowerCase())
-      return this.setState({
-        chosenLetters: word.split('')
-      })
-
-    this.updateScore("1") // tering lelijke hack
+    if (this.state.word === word){
+      this.checkGameOver(0, this.state.word, word.split(""), this.state.score.wrong)
+    } else {
+      this.updateScore("1") // tering lelijke hack
+    }
   }
 
   render() {
-        return (
+      if (this.state.gameProgress) {
+        return(
+        <div>
+          <div className="feedback">
+            <DisplayWord
+              word={this.state.word}
+              chosenLetters={this.state.chosenLetters}
+            />
+            <ScoreBoard
+              gameProgress = {this.state.gameProgress}
+              score={this.state.score}
+            />
+          </div>
+          <div className="menus">
+            <PlayAgain
+              gameProgress={this.state.gameProgress}
+              chooseWord={this.props.chooseWord}
+            />
+          </div>
+        </div>
+      )} else {
+      return (
       <div>
         <div className="feedback">
           <DisplayWord
             word={this.state.word}
-            chosenLetters={this.state.chosenLetters} />
-          <ScoreBoard score={this.state.score}/>
+            chosenLetters={this.state.chosenLetters}
+          />
+          <ScoreBoard
+            gameProgress = {this.state.gameProgress}
+            score={this.state.score}
+          />
         </div>
-
         <div className="menus">
           <LetterKeuze
-            inputLetter={this.props.updateScore}
+            inputLetter={this.updateScore}
           />
-          <GuessWord guessedWord={this.props.handleGuessWord} />
+          <GuessWord
+            guessedWord={this.handleGuessWord}
+          />
         </div>
       </div>
-    )
+    )}
   }
 }
 
 export default GameArea;
-
-GameArea.updateScore("b") //?? this.state.score ++
